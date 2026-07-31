@@ -1,0 +1,57 @@
+version: 1
+
+storage:
+  backend: SQLITE
+  database-file: data/dungeons.db
+  host: localhost
+  port: 3306
+  database: instanced_dungeons
+  username: ''
+  password: ''
+  pool-size: 10
+
+worlds:
+  template-world: dungeon-template
+  instance-directory: instances
+  keep-template-loaded: true
+  auto-delete-on-complete: true
+  auto-delete-on-fail: true
+  orphan-timeout-seconds: 300
+  unload-delay-ticks: 20
+
+parties:
+  minimum-size: 1
+  maximum-size: 5
+  invite-timeout-seconds: 60
+  ready-check-timeout-seconds: 30
+  allow-party-chat: true
+  allow-spectators: true
+
+dungeons:
+  default-time-limit-seconds: 1800
+  start-countdown-seconds: 10
+  entry-fee: 0.0
+  require-ready-check: true
+  allow-reconnect: true
+  reconnect-timeout-seconds: 120
+
+protection:
+  prevent-block-breaking: true
+  prevent-block-placing: true
+  prevent-buckets: true
+  prevent-explosions: true
+  prevent-pvp: true
+  prevent-item-dropping: true
+  prevent-item-pickup: true
+  prevent-commands: true
+  prevent-external-players: true
+
+timer:
+  bossbar: true
+  actionbar: true
+  scoreboard: false
+  announce-countdown: true
+
+logging:
+  debug: false
+  performance-metrics: true

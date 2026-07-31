@@ -1,0 +1,21 @@
+name: InstancedDungeons
+version: 1.0.0
+main: com.kodari.instanceddungeons.InstancedDungeonsPlugin
+api-version: '1.21'
+load: POSTWORLD
+author: Kodari
+description: Isolated, configurable dungeon instances for Paper servers.
+website: https://kodari.com
+
+commands:
+  instanceddungeons:
+    description: InstancedDungeons administration command.
+    aliases:
+      - idd
+    usage: /instanceddungeons reload
+    permission: instanceddungeons.admin.reload
+
+permissions:
+  instanceddungeons.admin.reload:
+    description: Reload InstancedDungeons configuration.
+    default: op
