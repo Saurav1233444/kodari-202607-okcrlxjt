@@ -52,13 +52,9 @@ public final class ConfigurationService implements LifecycleComponent, Reloadabl
         }
 
         validatePositive("storage.pool-size", databasePoolSize());
-        validatePositive("parties.minimum-size", partyMinimumSize());
-        validatePositive("parties.maximum-size", partyMaximumSize());
         validatePositive("dungeons.default-time-limit-seconds", defaultTimeLimitSeconds());
         validatePositive("worlds.orphan-timeout-seconds", orphanTimeoutSeconds());
         validatePositive("worlds.unload-delay-ticks", Math.toIntExact(unloadDelayTicks()));
-        validatePositive("parties.invite-timeout-seconds", inviteTimeoutSeconds());
-        validatePositive("parties.ready-check-timeout-seconds", readyCheckTimeoutSeconds());
         validatePositive("dungeons.start-countdown-seconds", startCountdownSeconds());
         validatePositive("dungeons.reconnect-timeout-seconds", reconnectTimeoutSeconds());
 
@@ -74,20 +70,6 @@ public final class ConfigurationService implements LifecycleComponent, Reloadabl
 
         if (entryFee() < 0.0D) {
             throw new IllegalStateException("dungeons.entry-fee cannot be negative");
-        }
-
-        int minimumPartySize = partyMinimumSize();
-        int maximumPartySize = partyMaximumSize();
-        if (minimumPartySize > maximumPartySize) {
-            throw new IllegalStateException("parties.minimum-size cannot be greater than parties.maximum-size");
-        }
-
-        if (templateWorld().isBlank()) {
-            throw new IllegalStateException("worlds.template-world cannot be blank");
-        }
-
-        if (instanceDirectory().isBlank()) {
-            throw new IllegalStateException("worlds.instance-directory cannot be blank");
         }
     }
 

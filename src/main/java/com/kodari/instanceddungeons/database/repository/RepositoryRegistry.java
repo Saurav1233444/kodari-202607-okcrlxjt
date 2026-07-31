@@ -4,7 +4,6 @@ import com.kodari.instanceddungeons.database.transaction.TransactionManager;
 import com.kodari.instanceddungeons.repositories.CooldownRepository;
 import com.kodari.instanceddungeons.repositories.DungeonDefinitionRepository;
 import com.kodari.instanceddungeons.repositories.InstanceRepository;
-import com.kodari.instanceddungeons.repositories.PartyRepository;
 import com.kodari.instanceddungeons.repositories.PlayerProgressRepository;
 import com.kodari.instanceddungeons.repositories.RewardRepository;
 import com.kodari.instanceddungeons.repositories.RuntimeStateRepository;
@@ -15,45 +14,53 @@ import java.util.Objects;
 import java.util.concurrent.Executor;
 
 public final class RepositoryRegistry {
-    private final JdbcRepositories repositories;
+    private final DungeonDefinitionRepository dungeonDefinitionRepository;
+    private final InstanceRepository instanceRepository;
+    private final PlayerProgressRepository playerProgressRepository;
+    private final StatisticsRepository statisticsRepository;
+    private final RewardRepository rewardRepository;
+    private final CooldownRepository cooldownRepository;
+    private final RuntimeStateRepository runtimeStateRepository;
 
     public RepositoryRegistry(DataSource dataSource, TransactionManager transactions, Executor executor) {
-        this.repositories = new JdbcRepositories(
-                Objects.requireNonNull(dataSource, "dataSource"),
-                Objects.requireNonNull(transactions, "transactions"),
-                Objects.requireNonNull(executor, "executor")
-        );
+        Objects.requireNonNull(dataSource, "dataSource");
+        Objects.requireNonNull(transactions, "transactions");
+        Objects.requireNonNull(executor, "executor");
+
+        this.dungeonDefinitionRepository = new JdbcDungeonDefinitionRepository(dataSource, executor);
+        this.instanceRepository = new JdbcInstanceRepository(dataSource, executor);
+        this.playerProgressRepository = new JdbcPlayerProgressRepository(dataSource, executor);
+        this.statisticsRepository = new JdbcStatisticsRepository(dataSource, executor);
+        this.rewardRepository = new JdbcRewardRepository(dataSource, executor);
+        this.cooldownRepository = new JdbcCooldownRepository(dataSource, executor);
+        this.runtimeStateRepository = new JdbcRuntimeStateRepository(dataSource, executor);
     }
 
     public DungeonDefinitionRepository dungeonDefinitions() {
-        return repositories;
+        return dungeonDefinitionRepository;
     }
 
     public InstanceRepository instances() {
-        return repositories;
-    }
-
-    public PartyRepository parties() {
-        return repositories;
+        return instanceRepository;
     }
 
     public PlayerProgressRepository playerProgress() {
-        return repositories;
+        return playerProgressRepository;
     }
 
     public StatisticsRepository statistics() {
-        return repositories;
+        return statisticsRepository;
     }
 
     public RewardRepository rewards() {
-        return repositories;
+        return rewardRepository;
     }
 
     public CooldownRepository cooldowns() {
-        return repositories;
+        return cooldownRepository;
     }
 
     public RuntimeStateRepository runtimeState() {
-        return repositories;
+        return runtimeStateRepository;
     }
 }
